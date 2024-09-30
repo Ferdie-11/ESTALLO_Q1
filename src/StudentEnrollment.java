@@ -14,17 +14,17 @@ public class StudentEnrollment {
         System.out.print("Enter course code: ");
         String courseCode = scanner.nextLine();
 
-        System.out.print("Enter number of units (Maximum 10): ");
-        int numberOfUnits = scanner.nextInt();
+        // Input and validate number of units
+        int numberOfUnits = getValidUnits(scanner);
 
         // Compute enrollment fee
-        int feePerUnit = 1000; // Fee per unit in PHP
+        int feePerUnit = 1000;
         int totalFee = numberOfUnits * feePerUnit;
 
         // Output student information and total fee
         System.out.println("Student Name: " + studentName);
         System.out.println("Enrolled Program: " + course);
-        System.out.println("Total Enrollment Fee: "+ totalFee + " Pesos"); 
+        System.out.println("Total Enrollment Fee: " + totalFee + " Pesos");
 
         // Payment process
         System.out.print("Enter payment amount: ");
@@ -34,12 +34,27 @@ public class StudentEnrollment {
             System.out.println("Payment Status: Fully Paid");
         } else if (payment < totalFee) {
             System.out.println("Payment Status: Partial Payment");
-            System.out.println("Amount Paid: " + payment + " Pesos"); 
+            System.out.println("Amount Paid: " + payment + " Pesos");
         } else {
             System.out.println("Payment Status: Overpaid");
-            System.out.println("Amount Paid: "+ payment + " Pesos"); 
+            System.out.println("Amount Paid: " + payment + " Pesos");
         }
 
         scanner.close();
+    }
+
+    // Method to validate the number of units
+    public static int getValidUnits(Scanner scanner) {
+        int units;
+        while (true) {
+            System.out.print("Enter number of units (Maximum 10): ");
+            units = scanner.nextInt();
+            if (units > 0 && units <= 10) {
+                break;
+            } else {
+                System.out.println("Invalid number of units. Please enter a value between 1 and 10.");
+            }
+        }
+        return units;
     }
 }
